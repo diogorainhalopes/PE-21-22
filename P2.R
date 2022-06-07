@@ -1,0 +1,16 @@
+library("readxl")
+library("tidyverse")
+library("reshape2")
+
+Anos <- read_excel("EsperancaVida.xlsx", range="A51:A69")
+Letonia_Homens <- read_excel("EsperancaVida.xlsx", range="BD51:BD69")
+Letonia_Mulheres <- read_excel("EsperancaVida.xlsx", range="CL51:CL69")
+Franca_Homens <- read_excel("EsperancaVida.xlsx", range="AY51:AY69")
+Franca_Mulheres <- read_excel("EsperancaVida.xlsx", range="CG51:CG69")
+Suecia_Homens <- read_excel("EsperancaVida.xlsx", range="BM51:BM69")
+Suecia_Mulheres <- read_excel("EsperancaVida.xlsx", range="CU51:CU69")
+
+df <- data.frame(Anos, Letonia_Homens, Letonia_Mulheres, Franca_Homens, Franca_Mulheres, Suecia_Homens, Suecia_Mulheres )
+colnames(df) <- c("Anos", "LT-H", "LT-M", "FR-H", "FR-M", "SE-H", "SE-M")
+df_long <- melt(df, id="Anos")
+ggplot(data = df_long, aes(x = Anos, y = value, colour = variable)) + geom_line() + ylab("Esperança de Vida") + ggtitle("2002-2019")
