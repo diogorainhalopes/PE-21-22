@@ -1,4 +1,3 @@
-library("readxl")
 library("tidyverse")
 library("reshape2")
 set.seed(680)
@@ -9,21 +8,16 @@ lambda = 2.48
 conf = 0.91
 alpha = 1-conf
 
-x <- qnorm(conf + alpha/2)
-
 df=data.frame()
-
+amp = NULL
 for (i in n) {
-  amp = 0
   for (j in 1:m) { 
     amostra <- rexp(i, lambda)
-    
-    a <- mean(amostra) + x * sd(amostra) / sqrt(i)
-    b <- mean(amostra) - x * sd(amostra) / sqrt(i)
-    amp <- amp + (a-b)
+    a <- 1/mean(amostra) * (1 - (qnorm(1-(alpha/2))) / sqrt(i))
+    b <- 1/mean(amostra) * (1 + (qnorm(1-(alpha/2))) / sqrt(i))
+    amp <- c(amp, (b-a))
   }
-  amp <- amp / m
-  df = rbind(df, c(i, amp))
+  df = rbind(df, c(i, mean(amp)))
 }
 names(df)[1] <- 'n'
 names(df)[2] <- 'MA'

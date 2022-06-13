@@ -23,16 +23,16 @@ df3 <- data.frame(vetor3)
 g1 <- ggplot(df1, aes(x = vetor1)) + geom_histogram(aes(y = ..density..), 
       colour="darkred", fill="red") + 
       stat_function(fun = dnorm, args = list(mean = mean(df1$vetor1), sd = sd(df1$vetor1))) +
-      xlab("n = 4") + ylab("Freq. Relativa") +
-      ggtitle("Histogramas de Freq. Relativa de distribuições uniformes contínuas em [5, 9]")
+      xlab("n = 4") + ylab("Densidade") +
+      ggtitle("Histogramas de Densidade de distribuições uniformes contínuas em [5, 9]")
 
 g2 <- ggplot(df2, aes(x = vetor2)) + geom_histogram(aes(y = ..density..), 
       colour="darkblue",fill="blue") + 
       stat_function(fun = dnorm, args = list(mean = mean(df2$vetor2), sd = sd(df2$vetor2))) + 
-      xlab("n = 29") + ylab("Freq. Relativa")
+      xlab("n = 29") + ylab("Densidade")
 
 g3 <- ggplot(df3, aes(x = vetor3)) + geom_histogram(aes(y = ..density..), 
       colour="darkgreen", fill="green") + 
       stat_function(fun = dnorm, args = list(mean = mean(df3$vetor3), sd = sd(df3$vetor3))) + 
-      xlab("n = 59") + ylab("Freq. Relativa")
+      xlab("n = 59") + ylab("Densidade")
 ggarrange(g1, g2, g3)

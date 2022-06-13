@@ -1,18 +1,19 @@
 library("ggplot2")
 
-seed = 967
 m = 800
-n = 967
+n = 577
+set.seed(967)
 
-amplitude = 0
+lambda = 1.69
+conf = 0.97
+alpha = 1-conf
 
+amp = NULL
 
-set.seed(seed)
 for (i in 1:m) { 
-  a <- mean(rexp(n, 1.69)) + qnorm(0.97 + 0.03/2)*sd(rexp(n, 1.69))/sqrt(n)
-  b <- mean(rexp(n, 1.69)) - qnorm(0.97 + 0.03/2)*sd(rexp(n, 1.69))/sqrt(n)
-  amplitude <- amplitude + (a-b)
+  amostra <- rexp(n, lambda)
+  a <- 1/mean(amostra) * (1 - (qnorm(1-(alpha/2))) / sqrt(n))
+  b <- 1/mean(amostra) * (1 + (qnorm(1-(alpha/2))) / sqrt(n))
+  amp <- c(amp, (b-a))
 }
-
-amplitude <- amplitude / m
-print(amplitude)
+print(mean(amp))
